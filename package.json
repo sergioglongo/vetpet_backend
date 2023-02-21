@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/sergioglongo/pf-prueba#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -26,6 +27,6 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
     "pg": "^8.8.0",
-    "sequelize": "^6.21.4"
+    "sequelize": "^6.28.0"
   }
 }

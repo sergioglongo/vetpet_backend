@@ -1,11 +1,18 @@
 const { Router } = require('express');
 const router = Router();
 const { User } = require('../db');
+const { TypeUser } = require('../db');
+const bcrypt = require("bcrypt");
 
 router.get('/getAllUsers', async (req, res) => {
-    console.log("User", User);
     try {
-        const users = await User.findAll();
+        const users = await User.findAll({
+          include: [
+            { 
+              model: TypeUser 
+            }
+          ]
+        });
         res.status(200).json(users);
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -26,32 +33,32 @@ router.get('/:id', async (req, res) => {
     }
   });
   
-  router.get("/createUser", async (req, res)  => {
+  router.post("/createUser", async (req, res)  => {
     try {
-        const { userName, email, password, userType } = req.body;
+        const { user, mailUser, password, idTypeUser } = req.body;
         // Hash the password
         const hashedPassword = await bcrypt.hash(password, 10);
         // Create the user in the database
-        const user = await User.create({
-            userName,
-            email,
+        const userCreated = await User.create({
+            user,
+            mailUser,
             password: hashedPassword,
-            userType,
+            idTypeUser,
         });
-        res.status(201).json({ user });
+        res.status(201).json({ userCreated });
     } catch (err) {
         console.log(err);
         res.status(404).json({ error: err.message });
     }
   });
   
-  router.get("/putUser", async (req, res) => {
-    const { userName, email, password, userType } = req.body;
-    const userId = req.params.userId;
+  router.post("/putUser", async (req, res) => {
+    const {idUser, user, mailUser, password, idTypeUser } = req.body;
+    
     try {
         const [rowsUpdated, [updatedUser]] = await User.update(
-            { userName, email, password, userType },
-            { where: { userId }, returning: true }
+            { user, mailUser, password, idTypeUser },
+            { where: { idUser }, returning: true }
         );
         if (rowsUpdated === 0) {
             res.status(404).json({ message: 'User not found' });
@@ -60,18 +67,18 @@ router.get('/:id', async (req, res) => {
         }
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message: 'Error updating user' });
+        res.status(500).json({ message: err.message });
     }
   });
   
   router.get("/login", async (req, res) => {
     try {
-        const { emailOrUsername, password } = req.body;
+        const { mailUserOrUser, password } = req.body;
         const user = await User.findOne({
             where: {
                 [Op.or]: [
-                    { email: emailOrUsername },
-                    { userName: emailOrUsername }
+                    { mailUser: mailUserOrUser },
+                    { user: mailUserOrUser }
                 ],
                 password: password
             }
