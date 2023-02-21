@@ -1,0 +1,31 @@
+{
+  "name": "vetpet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergioglongo/pf-prueba.git"
+  },
+  "author": "Sergio Longo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergioglongo/pf-prueba/issues"
+  },
+  "homepage": "https://github.com/sergioglongo/pf-prueba#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.19",
+    "pg": "^8.8.0",
+    "sequelize": "^6.21.4"
+  }
+}
