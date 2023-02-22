@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DB_USER, DB_PASSWORD, DB_HOST, DB_PORT,
 } = process.env;
 // const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/vetpet`, {
 //   logging: false, // set to console.log to see the raw SQL queries
@@ -13,7 +13,7 @@ const {
 var sequelize = new Sequelize('vetpet',DB_USER,DB_PASSWORD,{
   dialect: 'postgres',
   host: DB_HOST,
-  port: 5433,
+  port: DB_PORT,
   logging: false,
   dialectOptions: {
     requestTimeout: 30000,

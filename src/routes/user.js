@@ -71,29 +71,27 @@ router.get('/:id', async (req, res) => {
     }
   });
   
-  router.get("/login", async (req, res) => {
+  router.post("/login", async (req, res) => {
+    const { user, password } = req.body;
+    console.log("user, pass", req.body);
     try {
-        const { mailUserOrUser, password } = req.body;
-        const user = await User.findOne({
+        const userData = await User.findOne({
             where: {
-                [Op.or]: [
-                    { mailUser: mailUserOrUser },
-                    { user: mailUserOrUser }
-                ],
-                password: password
+              user: user
             }
         });
-        if (!user) {
-            return res.status(401).json({ message: "Invalid login credentials" });
+        if (!userData) {
+            return res.status(401).json({ success:false, message: "Invalid login credentials" });
         }
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await bcrypt.compare(password, userData.password);
         if (!isPasswordValid) {
-            return res.status(401).json({ message: "Invalid login credentials" });
+            return res.status(401).json({ success:false, message: "Invalid login credentials" });
         }
         // rest of the code for handling successful login
+        return res.status(200).json({success:true});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ success:false, message: error.message });
     }
   });
 

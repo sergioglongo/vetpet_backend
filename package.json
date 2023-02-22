@@ -14,9 +14,9 @@
   "author": "Sergio Longo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sergioglongo/pf-prueba/issues"
+    "url": "https://github.com/sergioglongo/vetpet/issues"
   },
-  "homepage": "https://github.com/sergioglongo/pf-prueba#readme",
+  "homepage": "https://github.com/sergioglongo/vetpet#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.0",
