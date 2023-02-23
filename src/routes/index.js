@@ -30,10 +30,10 @@ const router = Router();
 // router.use('/sale', SaleRoutes)
 // router.use('/typenotification', TypeNotificationRoutes)
 router.use('/user', UserRoutes)
-// router.use('/typeuser', TypeUserRoutes)
+router.use('/typeuser', TypeUserRoutes)
 // router.use('/vaccination' , vaccinationRoutes)
-// router.use('/vaccine', VaccineRoutes)
-// router.use('/veterinarian' , VeterinarianRoutes)
+router.use('/vaccine', VaccineRoutes)
+// router.use('/veterinarian', VeterinarianRoutes)
 // router.use('/visit', visitRoutes)
 
 module.exports = router;

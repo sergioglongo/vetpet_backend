@@ -7,9 +7,12 @@ module.exports = (sequelize) =>
         primaryKey: true,
         autoIncrement: true,
     },
-    vaccine:{
+    nameVaccine:{
         type: DataTypes.STRING,
     },    
+    description:{
+        type: DataTypes.STRING,
+    }
 },{timestamps: false})
 
 
