@@ -43,14 +43,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 // const { Recipe } = sequelize.models;
 // const {Diet} = sequelize.models
-const { Administrator, Appointment, Notification, Owner, Pet, Product, Sale, TypeNotification, TypeUser, User, Vaccination, Vaccine, Veterinarian, Visit } = sequelize.models;
+const { Administrator, Appointment, Notification, Client, Pet, Product, Sale, TypeNotification, TypeUser, User, Vaccination, Vaccine, Veterinarian, Visit } = sequelize.models;
 
 // Aca vendrian las relaciones
 
 // // MUCHOS-MUCHOS -- notifications-users
-const pet_owner = sequelize.define("pet_owner", {}, { timestamps: false });
-Pet.belongsToMany(Owner, { through: pet_owner, foreignKey: "idPet" }) // belongs To Many
-Owner.belongsToMany(Pet, { through: pet_owner, foreignKey: "idOwner" }) // belongs To Many
+const pet_client = sequelize.define("pet_client", {}, { timestamps: false });
+Pet.belongsToMany(Client, { through: pet_client, foreignKey: "idPet" }) // belongs To Many
+Client.belongsToMany(Pet, { through: pet_client, foreignKey: "idClient" }) // belongs To Many
 
 Pet.hasMany(Vaccination, {
   foreignKey: 'idPet'
@@ -76,7 +76,7 @@ User.belongsTo(TypeUser, {
   foreignKey: 'idTypeUser'
 })
 
-Owner.belongsTo(User, {
+Client.belongsTo(User, {
   foreignKey: 'idUser'
 })
 

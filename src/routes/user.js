@@ -115,16 +115,23 @@ router.post("/login", async (req, res) => {
     const userData = await User.findOne({
       where: {
         [Op.or]: [{ mailUser: req.body.usernameOrEmail }, { user: req.body.usernameOrEmail }]
-      }
+      },
+      include: [
+        {
+          model: TypeUser
+        }
+      ],
+      attributes: { exclude: ['idTypeUser'] }
     });
     if (!userData) {
-      return res.status(401).json({ success: false, message: "Invalid login credentials" });
+      return res.status(200).json({ success: false, message: "Invalid login credentials" });
     }
     const isPasswordValid = await bcrypt.compare(password, userData.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ success: false, message: "Invalid login credentials" });
+      return res.status(200).json({ success: false, message: "Invalid login credentials" });
     }
     // rest of the code for handling successful login
+    userData.password = null
     return res.status(200).json({ success: true, result: userData });
   } catch (error) {
     console.error(error);

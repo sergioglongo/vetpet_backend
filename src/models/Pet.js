@@ -15,11 +15,12 @@ module.exports = (sequelize) => {
         },
         identification: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },        
         weight: {
             type: DataTypes.FLOAT,
-            allowNull: false,
+            allowNull: true,
+            defaultValue: '0'
         },
         birthdate:{
             type: DataTypes.DATEONLY,

@@ -26,6 +26,7 @@ module.exports = (sequelize) =>
     identification:{
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
     },   
 },{timestamps: false})
 

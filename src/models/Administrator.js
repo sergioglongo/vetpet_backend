@@ -22,6 +22,11 @@ module.exports = (sequelize) =>
     phone:{
         type: DataTypes.STRING,
         allowNull: true,
-    }
+    },
+    identification:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },  
 },{timestamps: false})
 

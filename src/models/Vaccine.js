@@ -12,7 +12,10 @@ module.exports = (sequelize) =>
     },    
     description:{
         type: DataTypes.STRING,
-    }
+    },
+    expirationDate:{
+        type: DataTypes.DATE,
+    },
 },{timestamps: false})
 
 

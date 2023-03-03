@@ -10,7 +10,7 @@ module.exports = (sequelize) => sequelize.define('Product',{
         type: DataTypes.STRING,
         allowNull: true,
     },     
-    Description:{
+    description:{
         type: DataTypes.STRING,
         allowNull: true,
     }, 
@@ -18,7 +18,12 @@ module.exports = (sequelize) => sequelize.define('Product',{
         type: DataTypes.FLOAT,
         allowNull: true,
         defaultValue: 0,
-    },   
+    }, 
+    barCode:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
+    },      
 },{timestamps: false})
 
 

@@ -10,6 +10,7 @@ module.exports = (sequelize) =>
     user:{
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
     },    
     password:{
         type: DataTypes.STRING,
@@ -18,6 +19,11 @@ module.exports = (sequelize) =>
     mailUser:{
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true
     },
+    avatarLink: {
+        type: DataTypes.STRING,
+        defaultValue: 'https://example.com/default-user-image.jpg'
+    }
 },{timestamps: false})
 
