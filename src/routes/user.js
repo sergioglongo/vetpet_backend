@@ -72,7 +72,7 @@ router.get('/:id', async (req, res) => {
 
 router.post("/createUser", async (req, res) => {
   try {
-    const { user, mailUser, password, idTypeUser } = req.body;
+    const { user, mailUser, password = '', idTypeUser, avatarLink } = req.body;
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create the user in the database
@@ -80,6 +80,7 @@ router.post("/createUser", async (req, res) => {
       user,
       mailUser,
       password: hashedPassword,
+      avatarLink,
       idTypeUser,
     });
     res.status(201).json({ userCreated });
