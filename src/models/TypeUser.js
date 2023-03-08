@@ -9,7 +9,11 @@ module.exports = (sequelize) =>
     },
     typeUser:{
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+    },       
+    name:{
+        type: DataTypes.STRING,
+        allowNull: true,
     },    
 },{timestamps: false})
 

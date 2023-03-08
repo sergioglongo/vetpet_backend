@@ -18,7 +18,13 @@ router.get('/getAllClients', async (req, res) => {
                 attributes: { exclude: ['idUser', 'password'] }
             }
         );
-        res.status(200).json({ success: true, result: clients });
+
+        const totalClients = await Client.count();
+        const activeClients = await Client.count({
+            where: { status: true }
+        });
+
+        res.status(200).json({ success: true, totalClients, activeClients, result: clients });
     } catch (error) {
         res.status(400).json({ success: false, error: error.message });
     }

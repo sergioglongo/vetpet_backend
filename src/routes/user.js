@@ -43,11 +43,38 @@ router.get('/getAllUsers', async (req, res) => {
       ],
       attributes: { exclude: ['idTypeUser', 'password'] }
     });
-    res.status(200).json({success: true, counter: users.length, result: users});
+    
+    // Total number of users
+    const totalUsers = users.length;
+    
+    // Number of users with active status
+    const activeUsers = users.filter(user => user.status).length;
+    
+    // Count of users for each type
+    const typeUserCounts = {};
+    users.forEach(user => {
+      const typeUser = user.TypeUser.typeUser;
+      typeUserCounts[typeUser] = typeUserCounts[typeUser] ? typeUserCounts[typeUser] + 1 : 1;
+    });
+    
+    // Obtener la cantidad de usuarios por cada tipo de usuario
+    const adminCount = users.filter(user => user['TypeUser.idTypeUser'] === 1).length;
+    const clientCount = users.filter(user => user['TypeUser.idTypeUser'] === 2).length;
+    const superCount = users.filter(user => user['TypeUser.idTypeUser'] === 3).length;
+    const vetCount = users.filter(user => user['TypeUser.idTypeUser'] === 4).length;
+
+    res.status(200).json({
+      success: true,
+      totalUsers,
+      activeUsers,
+      typeUserCounts,
+      result: users
+    });
   } catch (err) {
     res.status(400).json({success: false, error: err.message });
   }
 });
+
 
 router.get('/:id', async (req, res) => {
   try {
@@ -72,7 +99,7 @@ router.get('/:id', async (req, res) => {
 
 router.post("/createUser", async (req, res) => {
   try {
-    const { user, mailUser, password = '', idTypeUser, avatarLink } = req.body;
+    const { user, mailUser, password = '', idTypeUser, avatarLink, status } = req.body;
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
     // Create the user in the database
@@ -81,6 +108,7 @@ router.post("/createUser", async (req, res) => {
       mailUser,
       password: hashedPassword,
       avatarLink,
+      status,
       idTypeUser,
     });
     res.status(201).json({ userCreated });
@@ -91,11 +119,11 @@ router.post("/createUser", async (req, res) => {
 });
 
 router.post("/putUser", async (req, res) => {
-  const { idUser, user, mailUser, idTypeUser } = req.body;
+  const { idUser, user, mailUser, idTypeUser, status } = req.body;
 
   try {
     const [rowsUpdated, [updatedUser]] = await User.update(
-      { user, mailUser, idTypeUser },
+      { user, mailUser, idTypeUser, status },
       { where: { idUser }, returning: true }
     );
     if (rowsUpdated === 0) {

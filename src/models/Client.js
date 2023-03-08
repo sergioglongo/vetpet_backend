@@ -30,6 +30,10 @@ module.exports = (sequelize) => sequelize.define('Client', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+  }
 }, {
   timestamps: false,
   indexes: [
